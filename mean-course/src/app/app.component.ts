@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { Post } from './posts/post.modal';
 
 @Component({
   selector: 'app-root',
@@ -7,4 +8,9 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'mean-course';
+storePost: Post[] = [];
+  // tslint:disable-next-line: no-shadowed-variable
+  getPost(post: Post) {
+    this.storePost.push(post);
+  }
 }
