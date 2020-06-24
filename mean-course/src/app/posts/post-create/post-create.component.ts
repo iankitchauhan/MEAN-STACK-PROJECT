@@ -33,11 +33,13 @@ export class PostCreateComponent implements OnInit {
           });
           this.isLoading = true;
           if (this.postId) {
-               this.postService.getPostById(this.postId).subscribe(res => {
-                    this.post = { id: res._id, title: res.title, content: res.content };
+               this.postService.getPostById(this.postId).subscribe((res:any) => {
+                    this.post = { id: res._id, title: res.title, content: res.content,imagePath: res.imagePath
+                    };
                     this.form.setValue({
                          title: this.post.title,
-                         content: this.post.content
+                         content: this.post.content,
+                         image: this.post.imagePath
                     });
                     this.isLoading = false;
                });
@@ -46,20 +48,15 @@ export class PostCreateComponent implements OnInit {
           }
      }
      onFileChange(event: Event) {
-          console.log(event,'function called')
           const file = (event.target as HTMLInputElement).files[0];
-          console.log(file,'file data');
           this.form.patchValue({ image: file });
           this.form.get('image').updateValueAndValidity();
           const reader = new FileReader();
 
           reader.onload = () => {
                this.imagePreview = reader.result;
-               console.log(this.imagePreview,'image preview');
           }
           reader.readAsDataURL(file);
-          
-
      }
 
      onAddPost() {
